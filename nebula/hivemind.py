@@ -62,6 +62,16 @@ class DataBorg:
             self.eda_buffer: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered normalised data from bitalino"""
 
+            self.fnirs_buffer_raw: np.array = np.random.uniform(size=(46, 50))
+            """Live 5 sec buffered raw data from Brite"""
+
+            self.fnirs_buffer: np.array = np.random.uniform(size=(46, 50))
+            """Live 5 sec buffered normalised data from Brite"""
+
+            self.gyro_buffer: np.array = np.random.uniform(size=(3, 10))
+            """Live 1 sec buffered gyro data from Brite
+            ([heading, roll, pitch], data points)"""
+
             ######################
             # Additional streams
             ######################
@@ -109,10 +119,6 @@ class DataBorg:
         self.mic_in = random()
         self.rnd_poetry = random()
         self.rhythm_rate = randrange(30, 100) / 100
-
-        # self.eeg_buffer = np.random.uniform(size=(4, 50))
-        # self.eda_buffer = np.random.uniform(size=(1, 50))
-        # self.audio_buffer = np.random.uniform(size=(1, 50))
 
         self.eeg2flow = random()
         self.eeg2flow_2d = np.random.uniform(size=(1, 50))

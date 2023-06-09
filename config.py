@@ -1,8 +1,9 @@
 # [HARDWARE]
 dobot_connected = False
-xarm_connected = True
-eeg_live = True
-eda_live = True
+xarm_connected = False
+eeg_live = False
+eda_live = False
+fnirs_live = True
 
 # [PLAY PARAMS]
 silence_listener = False
