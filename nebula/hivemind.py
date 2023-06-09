@@ -68,6 +68,9 @@ class DataBorg:
             self.fnirs_buffer: np.array = np.random.uniform(size=(46, 50))
             """Live 5 sec buffered normalised data from Brite"""
 
+            self.fnirs: float = random()
+            """Live fNIRS normalised channel average"""
+
             self.gyro_buffer: np.array = np.random.uniform(size=(3, 10))
             """Live 1 sec buffered gyro data from Brite
             ([heading, roll, pitch], data points)"""
@@ -140,3 +143,5 @@ class DataBorg:
 
         self.eda2flow = random()
         self.eda2flow_2d = np.random.uniform(size=(1, 50))
+
+        self.fnirs = random()

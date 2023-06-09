@@ -79,7 +79,8 @@ class Visualiser:
                'audio2core': 'Audio groove',
                'audio2flow': 'Audio flow',
                'flow2audio': 'Brain audio',
-               'eda2flow': 'EDA'
+               'eda2flow': 'EDA',
+               'fnirs': 'fNIRS'
         }
 
         self.window_closed = False

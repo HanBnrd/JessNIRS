@@ -48,7 +48,8 @@ stream_list = ['rnd_poetry',
                'audio2core',
                'audio2flow',
                'flow2audio',
-               'eda2flow']
+               'eda2flow',
+               'fnirs']
 
 # [DEBUG]
 # debug = logging.INFO

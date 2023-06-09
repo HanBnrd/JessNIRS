@@ -242,6 +242,7 @@ class Nebula(Listener, AIFactoryRework):
                 # Rescale between 0 and 1
                 fnirs_norm = scaler(fnirs_detrend[:, -1],
                                     fnirs_mins, fnirs_maxs)
+                self.hivemind.fnirs = fnirs_norm.mean()
 
                 # Update normalised fNIRS buffer
                 fnirs_norm_2d = fnirs_norm[:, np.newaxis]
