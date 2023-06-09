@@ -68,7 +68,7 @@ class Drawbot(XArmAPI):
         self.compass_range = [[270, 90],  # roll min-max
                               [-100, 100]]  # pitch min-max
 
-        self.random_pen()
+        # self.random_pen()
 
         # Make a shared list / dict
         self.ready_position = [sum(config.xarm_x_extents)/2, 0, self.z + 100]
@@ -458,7 +458,7 @@ class Drawbot(XArmAPI):
         y = uniform(config.xarm_y_extents[0], config.xarm_y_extents[1])
         z = uniform(config.xarm_z_extents[0], config.xarm_z_extents[1])
 
-        self.random_pen()
+        # self.random_pen()
 
         self.coords.append((x, y))
         print(f"Random 3D pos x: {round(x, 2)}, y: {round(y, 2)}, z: {round(z, 2)}")

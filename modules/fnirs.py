@@ -84,6 +84,7 @@ class fNIRSReader:
     def read(self, num_points):
         if self.fnirs:
             # Get new sample
+            self.data_inlet.flush()
             sample, timestamp = self.data_inlet.pull_sample()
             sample_array = np.array(sample)
             od = sample_array[self.indices_keep]

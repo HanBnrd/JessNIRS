@@ -175,6 +175,17 @@ class Conducter:
                     # 2. Send to Master Output
                     self.hivemind.master_stream = thought_train
 
+                    # Gyro controls robot roll
+                    if self.XARM_CONNECTED:
+                        gyro_roll = self.hivemind.gyro_buffer[1, :].mean()
+                        logging.info(f'GYRO: {gyro_roll}')
+                        if gyro_roll > 0:
+                            self.drawbot.roll = 165
+                        elif gyro_roll < 0:
+                            self.drawbot.roll = 195
+                        else:
+                            self.drawbot.roll = 180
+
                     ###########################################################
                     # Makes a response to chosen thought stream
                     ###########################################################
