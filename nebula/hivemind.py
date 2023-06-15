@@ -51,10 +51,12 @@ class DataBorg:
             self.audio_buffer: np.array = np.random.uniform(size=(1, 50))
 
             self.eeg_buffer_raw: np.array = np.random.uniform(size=(4, 50))
-            """Live 5 sec buffered raw data from brainbit"""
+            """Live 5 sec buffered raw data from brainbit
+            [T3, T4, O1, O2]"""
 
             self.eeg_buffer: np.array = np.random.uniform(size=(4, 50))
-            """Live 5 sec buffered normalised data from brainbit"""
+            """Live 5 sec buffered normalised data from brainbit
+            [T3, T4, O1, O2]"""
 
             self.eda_buffer_raw: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered raw data from bitalino"""
@@ -62,18 +64,20 @@ class DataBorg:
             self.eda_buffer: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered normalised data from bitalino"""
 
-            self.fnirs_buffer_raw: np.array = np.random.uniform(size=(46, 50))
-            """Live 5 sec buffered raw data from Brite"""
+            self.fnirs_buffer_raw: np.array = np.random.uniform(size=(4, 50))
+            """Live 5 sec buffered raw data from Brite
+            [Left HbO, Right HbO, Left HbR, Right HbR]"""
 
-            self.fnirs_buffer: np.array = np.random.uniform(size=(46, 50))
-            """Live 5 sec buffered normalised data from Brite"""
+            self.fnirs_buffer: np.array = np.random.uniform(size=(4, 50))
+            """Live 5 sec buffered normalised data from Brite
+            [Left HbO, Right HbO, Left HbR, Right HbR]"""
 
             self.fnirs: float = random()
             """Live fNIRS normalised channel average"""
 
             self.gyro_buffer: np.array = np.random.uniform(size=(3, 10))
             """Live 1 sec buffered gyro data from Brite
-            ([heading, roll, pitch], data points)"""
+            [Heading, Roll, Pitch]"""
 
             ######################
             # Additional streams

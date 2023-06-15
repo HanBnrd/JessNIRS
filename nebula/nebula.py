@@ -231,18 +231,15 @@ class Nebula(Listener, AIFactoryRework):
                 self.hivemind.fnirs_buffer_raw = np.delete(
                     self.hivemind.fnirs_buffer_raw, 0, axis=1)
 
-                # Detrend on the buffer time window
-                fnirs_detrend = signal.detrend(self.hivemind.fnirs_buffer_raw)
-
                 # Get min and max from raw fNIRS buffer
-                fnirs_mins = np.min(fnirs_detrend, axis=1)
-                fnirs_maxs = np.max(fnirs_detrend, axis=1)
+                fnirs_mins = np.min(self.hivemind.fnirs_buffer_raw, axis=1)
+                fnirs_maxs = np.max(self.hivemind.fnirs_buffer_raw, axis=1)
                 fnirs_mins = fnirs_mins - 0.05 * (fnirs_maxs - fnirs_mins)
 
                 # Rescale between 0 and 1
-                fnirs_norm = scaler(fnirs_detrend[:, -1],
+                fnirs_norm = scaler(self.hivemind.fnirs_buffer_raw[:, -1],
                                     fnirs_mins, fnirs_maxs)
-                self.hivemind.fnirs = fnirs_norm.mean()
+                self.hivemind.fnirs = fnirs_norm[:2].mean()  # HbO only
 
                 # Update normalised fNIRS buffer
                 fnirs_norm_2d = fnirs_norm[:, np.newaxis]
