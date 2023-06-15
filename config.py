@@ -1,8 +1,9 @@
 # [HARDWARE]
 dobot_connected = False
 xarm_connected = True
-eeg_live = True
-eda_live = True
+eeg_live = False
+eda_live = False
+fnirs_live = True
 
 # [PLAY PARAMS]
 silence_listener = False
@@ -47,7 +48,7 @@ stream_list = ['rnd_poetry',
                'audio2core',
                'audio2flow',
                'flow2audio',
-               'eda2flow']
+               'fnirs']
 
 # [DEBUG]
 # debug = logging.INFO

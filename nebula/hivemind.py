@@ -51,16 +51,33 @@ class DataBorg:
             self.audio_buffer: np.array = np.random.uniform(size=(1, 50))
 
             self.eeg_buffer_raw: np.array = np.random.uniform(size=(4, 50))
-            """Live 5 sec buffered raw data from brainbit"""
+            """Live 5 sec buffered raw data from brainbit
+            [T3, T4, O1, O2]"""
 
             self.eeg_buffer: np.array = np.random.uniform(size=(4, 50))
-            """Live 5 sec buffered normalised data from brainbit"""
+            """Live 5 sec buffered normalised data from brainbit
+            [T3, T4, O1, O2]"""
 
             self.eda_buffer_raw: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered raw data from bitalino"""
 
             self.eda_buffer: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered normalised data from bitalino"""
+
+            self.fnirs_buffer_raw: np.array = np.random.uniform(size=(4, 50))
+            """Live 5 sec buffered raw data from Brite
+            [Left HbO, Right HbO, Left HbR, Right HbR]"""
+
+            self.fnirs_buffer: np.array = np.random.uniform(size=(4, 50))
+            """Live 5 sec buffered normalised data from Brite
+            [Left HbO, Right HbO, Left HbR, Right HbR]"""
+
+            self.fnirs: float = random()
+            """Live fNIRS normalised channel average"""
+
+            self.gyro_buffer: np.array = np.random.uniform(size=(3, 10))
+            """Live 1 sec buffered gyro data from Brite
+            [Heading, Roll, Pitch]"""
 
             ######################
             # Additional streams
@@ -110,10 +127,6 @@ class DataBorg:
         self.rnd_poetry = random()
         self.rhythm_rate = randrange(30, 100) / 100
 
-        # self.eeg_buffer = np.random.uniform(size=(4, 50))
-        # self.eda_buffer = np.random.uniform(size=(1, 50))
-        # self.audio_buffer = np.random.uniform(size=(1, 50))
-
         self.eeg2flow = random()
         self.eeg2flow_2d = np.random.uniform(size=(1, 50))
 
@@ -134,3 +147,5 @@ class DataBorg:
 
         self.eda2flow = random()
         self.eda2flow_2d = np.random.uniform(size=(1, 50))
+
+        self.fnirs = random()

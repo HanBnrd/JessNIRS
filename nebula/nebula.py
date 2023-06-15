@@ -21,6 +21,7 @@ from time import sleep, time
 import config
 from modules.bitalino import BITalino
 from modules.brainbit import BrainbitReader
+from modules.fnirs import fNIRSReader
 from modules.listener import Listener
 from nebula.ai_factory import AIFactoryRework
 
@@ -77,6 +78,7 @@ class Nebula(Listener, AIFactoryRework):
         AIFactoryRework.__init__(self, speed)
         self.BRAINBIT_CONNECTED = config.eeg_live
         self.BITALINO_CONNECTED = config.eda_live
+        self.FNIRS_CONNECTED = config.fnirs_live
 
         # Init brainbit reader
         if self.BRAINBIT_CONNECTED:
@@ -106,6 +108,13 @@ class Nebula(Listener, AIFactoryRework):
             self.eda.start(BITALINO_BAUDRATE, BITALINO_ACQ_CHANNELS)
             first_eda_data = self.eda.read(1)[0]
             logging.info(f'Data from BITalino = {first_eda_data}')
+
+        if self.FNIRS_CONNECTED:
+            logging.info("Starting fNIRS connection")
+            self.fnirs_reader = fNIRSReader()
+            self.fnirs_reader.start()
+            fnirs_data = self.fnirs_reader.read(1)
+            logging.info(f'Data from fNIRS = {fnirs_data}')
 
         # Work out master timing then collapse hivemind.running
         self.endtime = time() + config.duration_of_piece
@@ -200,6 +209,48 @@ class Nebula(Listener, AIFactoryRework):
                 # Random data if no brainbit
                 self.hivemind.eeg_buffer = np.random.uniform(size=(4, 50))
 
+            # Read data from brainbit
+            if self.FNIRS_CONNECTED:
+                # Get raw data
+                data = self.fnirs_reader.read(1)
+                fnirs, gyro = data[:-3], data[-3:]
+                logging.debug(f"fnirs data raw = {fnirs}")
+                logging.debug(f"gyro data raw = {gyro}")
+
+                # Update gyro buffer
+                gyro_2d = np.array(gyro)[:, np.newaxis]
+                self.hivemind.gyro_buffer = np.append(
+                    self.hivemind.gyro_buffer, gyro_2d, axis=1)
+                self.hivemind.gyro_buffer = np.delete(
+                    self.hivemind.gyro_buffer, 0, axis=1)
+
+                # Update raw fNIRS buffer
+                fnirs_2d = np.array(fnirs)[:, np.newaxis]
+                self.hivemind.fnirs_buffer_raw = np.append(
+                    self.hivemind.fnirs_buffer_raw, fnirs_2d, axis=1)
+                self.hivemind.fnirs_buffer_raw = np.delete(
+                    self.hivemind.fnirs_buffer_raw, 0, axis=1)
+
+                # Get min and max from raw fNIRS buffer
+                fnirs_mins = np.min(self.hivemind.fnirs_buffer_raw, axis=1)
+                fnirs_maxs = np.max(self.hivemind.fnirs_buffer_raw, axis=1)
+                fnirs_mins = fnirs_mins - 0.05 * (fnirs_maxs - fnirs_mins)
+
+                # Rescale between 0 and 1
+                fnirs_norm = scaler(self.hivemind.fnirs_buffer_raw[:, -1],
+                                    fnirs_mins, fnirs_maxs)
+                self.hivemind.fnirs = fnirs_norm[:2].mean()  # HbO only
+
+                # Update normalised fNIRS buffer
+                fnirs_norm_2d = fnirs_norm[:, np.newaxis]
+                self.hivemind.fnirs_buffer = np.append(
+                    self.hivemind.fnirs_buffer, fnirs_norm_2d, axis=1)
+                self.hivemind.fnirs_buffer = np.delete(
+                    self.hivemind.fnirs_buffer, 0, axis=1)
+            else:
+                # Random data if no brainbit
+                self.hivemind.fnirs_buffer = np.random.uniform(size=(46, 50))
+
             sleep(0.1)  # for 10 Hz
 
         self.hivemind.running = False
@@ -212,3 +263,5 @@ class Nebula(Listener, AIFactoryRework):
             self.eeg_board.terminate()
         if self.BITALINO_CONNECTED:
             self.eda.close()
+        if self.FNIRS_CONNECTED:
+            self.fnirs_reader.terminate()
