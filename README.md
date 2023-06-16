@@ -2,7 +2,7 @@
 
 [<img align="right" width="100" height="100" src="digiscore.png">](https://digiscore.github.io/)
 
-Musicking robot interacting in real-time with a musician ensemble through drawing digital score, designed to enhance creativity using audio captured by a microphone and physiological measures ([EEG](https://en.wikipedia.org/wiki/Electroencephalography) and [EDA](https://en.wikipedia.org/wiki/Electrodermal_activity)). Currently supports [Dobot Magician Lite](https://www.dobot-robots.com/products/education/magician-lite.html) and [UFactory xArm](https://www.ufactory.cc/xarm-collaborative-robot), uses a [BrainBit](https://brainbit.com/) EEG and [BITalino](https://www.pluxbiosignals.com/collections/bitalino) EDA. Tested on Windows 10 primarily.
+Musicking robot interacting in real-time with a musician ensemble through drawing digital score, designed to enhance creativity using audio captured by a microphone and physiological measures ([EEG](https://en.wikipedia.org/wiki/Electroencephalography), [EDA](https://en.wikipedia.org/wiki/Electrodermal_activity) and **[fNIRS](https://en.wikipedia.org/wiki/Functional_near-infrared_spectroscopy)**). Currently supports [Dobot Magician Lite](https://www.dobot-robots.com/products/education/magician-lite.html) and [UFactory xArm](https://www.ufactory.cc/xarm-collaborative-robot), uses a [BrainBit](https://brainbit.com/) EEG, [BITalino](https://www.pluxbiosignals.com/collections/bitalino) EDA and **[Artinis](https://www.artinis.com/brite) fNIRS**. Tested on Windows 10 primarily.
 
 
 ## Setup
@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ## Quick Start
 - Connect the robot to the computer
-- Connect the BrainBit and BITalino to the computer via bluetooth
+- **Start the fNIRS device from OxySoft and turn on LSL streaming**
 - Run `main.py`
 
 *Note: if the BrainBit EEG is connected but the streaming session cannot be started, try unpairing the device, restart the computer, and repair it. The BrainBit should normally display a blinking light when connected but not in use, and have a solid light when actually being used by the script.*
