@@ -7,7 +7,7 @@ fnirs_live = True
 
 # [PLAY PARAMS]
 silence_listener = False
-duration_of_piece = 240  # in sec
+duration_of_piece = 200  # in sec
 continuous_line = False  # set to `True` to not jump between points
 speed = 5  # dynamic tempo of the all processes: 1 = slow, 10 = fast
 staves = 0
